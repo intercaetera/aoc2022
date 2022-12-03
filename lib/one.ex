@@ -1,8 +1,11 @@
 defmodule One do
   @filepath "./lib/inputs/one.txt"
 
-  def prep do
-    {:ok, content} = File.read(@filepath)
+  def read(path \\ @filepath) do
+    File.read!(path)
+  end
+
+  def prep(content \\ read()) do
     content
     |> String.trim()
     |> String.split("\n\n")
@@ -14,14 +17,14 @@ defmodule One do
   end
 
   # Part 1
-  def solve(source) do
+  def solve(source \\ prep()) do
     source
     |> Enum.map(&Enum.sum/1)
     |> Enum.max
   end
 
   # Part 2
-  def solve2(source) do
+  def solve2(source \\ prep()) do
     source
     |> Enum.map(&Enum.sum/1)
     |> Enum.sort(:desc)

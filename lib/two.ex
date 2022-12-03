@@ -1,16 +1,18 @@
 defmodule Two do
   @filepath "./lib/inputs/two.txt"
 
-  def prep do
-    {:ok, content} = File.read(@filepath)
+  def read(path \\ @filepath) do
+    File.read!(path)
+  end
 
+  def prep(content \\ read()) do
     content 
     |> String.trim()
     |> String.split("\n")
   end
 
   # Part 1
-  def solve(source) do
+  def solve(source \\ prep()) do
     source
     |> Enum.map(&parse_game/1)
     |> Enum.map(fn {you, me} -> get_points(you, me) end)
@@ -37,7 +39,7 @@ defmodule Two do
   defp get_points(you, me), do: get_game_points(you, me) + get_choice_points(me)
 
   # Part 2
-  def solve2(source) do
+  def solve2(source \\ prep()) do
     source
     |> Enum.map(&parse_game2/1)
     |> Enum.map(fn {you, outcome} -> get_points2(you, outcome) end)
