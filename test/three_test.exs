@@ -12,22 +12,19 @@ defmodule ThreeTest do
   """
 
   test "solves the first test case" do
-    assert prep(@data) |> solve() == 24000
+    assert prep(@data) |> solve() == 157
   end
 
-  @tag :skip
   test "solves the second test case" do
-    assert prep(@data) |> solve2() == 45000
+    assert prep(@data) |> solve2() == 70
   end
 
 
-  @tag :skip
   test "solves the first stage" do
-    assert solve() == 69912
+    assert solve() == 7737
   end
 
-  @tag :skip
   test "solves the second stage" do
-    assert solve2() == 208180
+    assert solve2() == 2697
   end
 end
