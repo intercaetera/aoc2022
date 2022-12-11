@@ -27,12 +27,11 @@ defmodule OneTest do
     assert prep(@data) |> solve2() == 45000
   end
 
-
   test "solves the first stage" do
     assert solve() == 69912
   end
 
   test "solves the second stage" do
-    assert solve2() == 208180
+    assert solve2() == 208_180
   end
 end

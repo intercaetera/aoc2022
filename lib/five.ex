@@ -59,9 +59,11 @@ defmodule Five do
 
   # Move parsing
   defp parse_move(move) do
-    [amount, from, to] = Regex.run(~r/move (\d*) from (\d*) to (\d*)/, move)
-                            |> Enum.drop(1)
-                            |> Enum.map(&String.to_integer/1)
+    [amount, from, to] =
+      Regex.run(~r/move (\d*) from (\d*) to (\d*)/, move)
+      |> Enum.drop(1)
+      |> Enum.map(&String.to_integer/1)
+
     [amount: amount, from: from, to: to]
   end
 

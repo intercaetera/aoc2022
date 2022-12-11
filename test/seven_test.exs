@@ -33,15 +33,14 @@ defmodule SevenTest do
   end
 
   test "solves the second test case" do
-    assert prep(@data) |> solve2() == 24933642
+    assert prep(@data) |> solve2() == 24_933_642
   end
 
-
   test "solves the first stage" do
-    assert solve() == 1583951
+    assert solve() == 1_583_951
   end
 
   test "solves the second stage" do
-    assert solve2() == 214171
+    assert solve2() == 214_171
   end
 end

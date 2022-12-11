@@ -9,7 +9,7 @@ defmodule Nine do
     content
     |> String.trim()
     |> String.split("\n")
-    |> Enum.flat_map(fn row -> 
+    |> Enum.flat_map(fn row ->
       [dir, count] = String.split(row, " ")
       List.duplicate(String.to_atom(dir), String.to_integer(count))
     end)
@@ -24,6 +24,7 @@ defmodule Nine do
   end
 
   def simulate([], positions), do: positions
+
   def simulate([move | tail], [position | positions]) do
     new_position = simulate_move(position, move)
     simulate(tail, [new_position, position] ++ positions)
@@ -50,7 +51,7 @@ defmodule Nine do
       :R -> {x + 1, y}
       :DR -> {x + 1, y - 1}
       :D -> {x, y - 1}
-      :DL -> {x - 1, y - 1} 
+      :DL -> {x - 1, y - 1}
       :L -> {x - 1, y}
       :UL -> {x - 1, y + 1}
     end
@@ -62,19 +63,16 @@ defmodule Nine do
     cond do
       # safe zone
       x <= 1 && x >= -1 && y <= 1 && y >= -1 -> :S
-
       # cardinals
       x == 0 && y > 0 -> :D
       y == 0 && x > 0 -> :L
       x == 0 && y < 0 -> :U
       y == 0 && x < 0 -> :R
-
       # diagonals
       x > 0 && y > 0 -> :DL
       x > 0 && y < 0 -> :UL
       x < 0 && y < 0 -> :UR
       x < 0 && y > 0 -> :DR
-
       true -> :error
     end
   end
@@ -84,10 +82,12 @@ defmodule Nine do
     new_head = get_next_position(head, move)
     simulate_long_move([new_head | tail], move, [new_head])
   end
+
   def simulate_long_move([head, next | tail], move, new_rope) do
     new_next = simulate_tail_move({head, next})
     simulate_long_move([new_next | tail], move, [new_next] ++ new_rope)
   end
+
   def simulate_long_move([_head | []], _, new_rope), do: new_rope |> Enum.reverse()
 
   def solve2(source \\ prep()) do

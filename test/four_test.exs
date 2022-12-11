@@ -19,7 +19,6 @@ defmodule FourTest do
     assert prep(@data) |> solve2() == 4
   end
 
-
   test "solves the first stage" do
     assert solve() == 599
   end

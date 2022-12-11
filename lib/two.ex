@@ -6,7 +6,7 @@ defmodule Two do
   end
 
   def prep(content \\ read()) do
-    content 
+    content
     |> String.trim()
     |> String.split("\n")
   end
@@ -21,8 +21,25 @@ defmodule Two do
 
   defp parse_game(game) do
     [abc, xyz] = game |> String.split(" ")
-    you = case abc, do: ("A" -> :rock; "B" -> :paper; "C" -> :scissors) 
-    me = case xyz,  do: ("X" -> :rock; "Y" -> :paper; "Z" -> :scissors)
+
+    you =
+      case abc,
+        do:
+          (
+            "A" -> :rock
+            "B" -> :paper
+            "C" -> :scissors
+          )
+
+    me =
+      case xyz,
+        do:
+          (
+            "X" -> :rock
+            "Y" -> :paper
+            "Z" -> :scissors
+          )
+
     {you, me}
   end
 
@@ -48,8 +65,25 @@ defmodule Two do
 
   defp parse_game2(game) do
     [abc, xyz] = game |> String.split(" ")
-    you = case abc, do: ("A" -> :rock; "B" -> :paper; "C" -> :scissors) 
-    outcome = case xyz,  do: ("X" -> :loss; "Y" -> :draw; "Z" -> :win)
+
+    you =
+      case abc,
+        do:
+          (
+            "A" -> :rock
+            "B" -> :paper
+            "C" -> :scissors
+          )
+
+    outcome =
+      case xyz,
+        do:
+          (
+            "X" -> :loss
+            "Y" -> :draw
+            "Z" -> :win
+          )
+
     {you, outcome}
   end
 

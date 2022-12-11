@@ -22,7 +22,6 @@ defmodule FiveTest do
     assert prep(@data) |> solve2() == "MCD"
   end
 
-
   test "solves the first stage" do
     assert solve() == "TQRFCBSJJ"
   end

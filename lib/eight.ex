@@ -11,16 +11,17 @@ defmodule Eight do
     height = length(split_list)
     width = String.length(hd(split_list))
 
-    map = split_list
-    |> Enum.with_index()
-    |> Enum.reduce(%{}, fn {row, y}, map ->
-      row
-      |> String.graphemes()
+    map =
+      split_list
       |> Enum.with_index()
-      |> Enum.reduce(map, fn {tree_height, x}, map ->
-        Map.put(map, {x, y}, String.to_integer(tree_height))
+      |> Enum.reduce(%{}, fn {row, y}, map ->
+        row
+        |> String.graphemes()
+        |> Enum.with_index()
+        |> Enum.reduce(map, fn {tree_height, x}, map ->
+          Map.put(map, {x, y}, String.to_integer(tree_height))
+        end)
       end)
-    end)
 
     {map, width, height}
   end
@@ -36,10 +37,14 @@ defmodule Eight do
 
   defp get_viewing_distances({x, y}, map, {width, height}) do
     [
-      Range.new((x-1), 0, -1) |> Enum.map(fn x -> Map.get(map, {x, y}) end), # Left
-      Range.new((x+1), (width-1), 1) |> Enum.map(fn x -> Map.get(map, {x, y}) end), # Right
-      Range.new((y-1), 0, -1) |> Enum.map(fn y -> Map.get(map, {x, y}) end), # Top
-      Range.new((y+1), (height-1), 1) |> Enum.map(fn y -> Map.get(map, {x, y}) end), # Bottom
+      # Left
+      Range.new(x - 1, 0, -1) |> Enum.map(fn x -> Map.get(map, {x, y}) end),
+      # Right
+      Range.new(x + 1, width - 1, 1) |> Enum.map(fn x -> Map.get(map, {x, y}) end),
+      # Top
+      Range.new(y - 1, 0, -1) |> Enum.map(fn y -> Map.get(map, {x, y}) end),
+      # Bottom
+      Range.new(y + 1, height - 1, 1) |> Enum.map(fn y -> Map.get(map, {x, y}) end)
     ]
   end
 
@@ -48,7 +53,7 @@ defmodule Eight do
 
     get_viewing_distances(coords, map, dimensions)
     |> Enum.map(fn dir -> Enum.all?(dir, fn h -> h < tree_height end) end)
-    |> Enum.any?
+    |> Enum.any?()
   end
 
   # Part 2
@@ -62,6 +67,7 @@ defmodule Eight do
 
   def get_scenic_score(coords, map, dimensions) do
     tree_height = Map.get(map, coords)
+
     get_viewing_distances(coords, map, dimensions)
     |> Enum.map(fn side -> take_until(side, &(&1 >= tree_height)) end)
     |> Enum.reduce(fn a, b -> a * b end)
@@ -69,6 +75,7 @@ defmodule Eight do
 
   defp take_until(list, fun, count \\ 0)
   defp take_until([], _fun, count), do: count
+
   defp take_until([head | tail], fun, count) do
     case fun.(head) do
       false -> take_until(tail, fun, count + 1)

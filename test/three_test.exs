@@ -19,7 +19,6 @@ defmodule ThreeTest do
     assert prep(@data) |> solve2() == 70
   end
 
-
   test "solves the first stage" do
     assert solve() == 7737
   end

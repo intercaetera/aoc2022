@@ -16,7 +16,6 @@ defmodule TwoTest do
     assert prep(@data) |> solve2() == 12
   end
 
-
   test "solves the first stage correctly" do
     assert Two.solve() == 14827
   end

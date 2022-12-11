@@ -11,6 +11,7 @@ defmodule Ten do
     |> String.split("\n")
     |> Enum.scan([{1, 1}], fn line, acc ->
       {cycle, x} = List.last(acc)
+
       case line do
         "noop" -> [{cycle + 1, x}]
         "addx " <> n -> [{cycle + 1, x}, {cycle + 2, x + String.to_integer(n)}]
@@ -23,15 +24,15 @@ defmodule Ten do
   # Part 1
   def solve(source \\ prep()) do
     source
-    |> Enum.filter(fn {count, _} -> rem(count, 40) == 20 end) 
+    |> Enum.filter(fn {count, _} -> rem(count, 40) == 20 end)
     |> Enum.map(fn {cycle, x} -> cycle * x end)
     |> Enum.sum()
   end
 
   # Part 2
   def sprite_visible?({cycle, x}) do
-    position = rem((cycle - 1), 40)
-    sprite = (x-1)..(x+1)
+    position = rem(cycle - 1, 40)
+    sprite = (x - 1)..(x + 1)
     position in sprite
   end
 

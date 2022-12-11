@@ -20,7 +20,7 @@ defmodule One do
   def solve(source \\ prep()) do
     source
     |> Enum.map(&Enum.sum/1)
-    |> Enum.max
+    |> Enum.max()
   end
 
   # Part 2

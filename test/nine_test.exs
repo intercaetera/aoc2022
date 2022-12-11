@@ -32,7 +32,6 @@ defmodule NineTest do
     assert prep(@data2) |> solve2() == 36
   end
 
-
   test "solves the first stage" do
     assert solve() == 6314
   end

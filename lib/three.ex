@@ -1,8 +1,10 @@
 defmodule Three do
   @filepath "./lib/inputs/three.txt"
 
-  @uppercase_offset -38 # ascii(A) = 65
-  @lowercase_offset -96 # ascii(a) = 97
+  # ascii(A) = 65
+  @uppercase_offset -38
+  # ascii(a) = 97
+  @lowercase_offset -96
 
   def read(path \\ @filepath) do
     File.read!(path)
@@ -24,14 +26,14 @@ defmodule Three do
   end
 
   defp split_compartments(rucksack) do
-    offset = String.length(rucksack) / 2 |> Kernel.floor()
+    offset = (String.length(rucksack) / 2) |> Kernel.floor()
     rucksack |> String.split_at(offset) |> Tuple.to_list()
   end
 
   defp find_duplicate([first | rest]) do
     first
     |> String.graphemes()
-    |> Enum.find(nil, fn c -> 
+    |> Enum.find(nil, fn c ->
       Enum.all?(rest, fn cs ->
         String.contains?(cs, c)
       end)
@@ -40,6 +42,7 @@ defmodule Three do
 
   defp get_item_priority(item) do
     char = item |> String.to_charlist() |> hd()
+
     cond do
       char in ?a..?z -> char + @lowercase_offset
       char in ?A..?Z -> char + @uppercase_offset

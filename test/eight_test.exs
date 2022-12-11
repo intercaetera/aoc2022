@@ -18,12 +18,11 @@ defmodule EightTest do
     assert prep(@data) |> solve2() == 8
   end
 
-
   test "solves the first stage" do
     assert solve() == 1543
   end
 
   test "solves the second stage" do
-    assert solve2() == 595080
+    assert solve2() == 595_080
   end
 end

@@ -18,6 +18,7 @@ defmodule Seven do
   end
 
   def parse_command([], tree, _), do: tree
+
   def parse_command([head | tail], tree, pwd) do
     case head do
       "$ cd /" -> parse_command(tail, tree, ["/"])
@@ -28,11 +29,16 @@ defmodule Seven do
   end
 
   def parse_ls([], tree, pwd), do: parse_command([], tree, pwd)
+
   def parse_ls([head | tail], tree, pwd) do
     case head do
-      "$" <> _ -> parse_command([head | tail], tree, pwd)
-      "dir " <> _dir -> parse_ls(tail, tree, pwd)
-      size_and_name -> 
+      "$" <> _ ->
+        parse_command([head | tail], tree, pwd)
+
+      "dir " <> _dir ->
+        parse_ls(tail, tree, pwd)
+
+      size_and_name ->
         [size, filename] = String.split(size_and_name, " ")
         tuple = {filename, String.to_integer(size)}
         new_tree = tree |> Map.update(pwd, [tuple], fn existing -> [tuple | existing] end)
@@ -42,12 +48,17 @@ defmodule Seven do
 
   def flatten_tree(tree, flat \\ %{})
   def flatten_tree([], flat), do: flat
+
   def flatten_tree([head | tail], flat) do
     {path, files} = head
     total_size = files |> Enum.map(fn {_, size} -> size end) |> Enum.sum()
-    new_flat = groups(path) |> Enum.reduce(flat, fn path, flat ->
-      Map.update(flat, path, total_size, &(&1 + total_size))
-    end)
+
+    new_flat =
+      groups(path)
+      |> Enum.reduce(flat, fn path, flat ->
+        Map.update(flat, path, total_size, &(&1 + total_size))
+      end)
+
     flatten_tree(tail, new_flat)
   end
 

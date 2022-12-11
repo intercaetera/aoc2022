@@ -20,7 +20,7 @@ defmodule Four do
   end
 
   defp split_into_ranges(line) do
-    #a-b,x-y
+    # a-b,x-y
 
     line
     |> String.split(",")
@@ -29,8 +29,8 @@ defmodule Four do
   end
 
   defp range_members?(first, second, strategy \\ &Enum.all?/2) do
-    first |> strategy.(fn x -> Enum.member?(second, x) end)
-    || second |> strategy.(fn y -> Enum.member?(first, y) end) 
+    first |> strategy.(fn x -> Enum.member?(second, x) end) ||
+      second |> strategy.(fn y -> Enum.member?(first, y) end)
   end
 
   # Part 2

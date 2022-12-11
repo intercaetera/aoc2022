@@ -14,7 +14,6 @@ defmodule SixTest do
     assert prep(@data) |> solve2() == 19
   end
 
-
   test "solves the first stage" do
     assert solve() == 1816
   end
